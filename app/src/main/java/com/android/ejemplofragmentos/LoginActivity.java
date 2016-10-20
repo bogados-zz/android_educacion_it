@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent homeIntent = new Intent(this, HomeActivity.class);
         Bundle bundle =new Bundle();
         bundle.putString("USER", this.userName.getText().toString());
+        homeIntent.putExtras(bundle);
         startActivity(homeIntent);
         finish();
     }

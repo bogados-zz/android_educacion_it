@@ -3,12 +3,13 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="2">
+    android:weightSum="2"
+    android:id="@+id/activity_home">
 
     <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listado"
+        android:id="@+id/detalle"
         android:layout_weight="0.5"
         android:name="com.android.ejemplofragmentos.fragments.DetalleFragment">
 

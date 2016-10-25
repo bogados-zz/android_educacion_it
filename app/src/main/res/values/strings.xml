@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Curso android</string>
+    <string name="download_service_on_create">Paso por el downloadService.onCreate</string>
+    <string name="download_service_on_destroy">Paso por el downloadService.onCreate</string>
+    <string name="download_service_on_bind">Paso por el downloadService.onCreate</string>
+    <string name="download_service_on_unbind">Paso por el downloadService.onCreate</string>
 </resources>

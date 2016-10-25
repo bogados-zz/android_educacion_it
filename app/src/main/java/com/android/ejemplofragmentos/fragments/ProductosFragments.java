@@ -1,6 +1,7 @@
 package com.android.ejemplofragmentos.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.android.ejemplofragmentos.GsonRequest;
 import com.android.ejemplofragmentos.ProductoAdapter;
 import com.android.ejemplofragmentos.R;
 import com.android.ejemplofragmentos.model.Producto;
+import com.android.ejemplofragmentos.services.DownloadService;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -68,7 +70,16 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
     }
 
     private void cargarProductos(){
+        Intent downloadIntent = new Intent(getActivity(), DownloadService.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("URL", "http://webkathon.com/pruebasit/products.php");
+        downloadIntent.putExtras(bundle);
 
+        getActivity().startService(downloadIntent);
+        /*getActivity().stopService(downloadIntent);*/
+    }
+
+/*
         GsonRequest<Producto[]> request = new GsonRequest<>(Request.Method.GET, "http://webkathon.com/pruebasit/products.php", Producto[].class, new Response.Listener() {
             @Override
             public void onResponse(Object response) {
@@ -80,13 +91,13 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getActivity(),"Se produjo un error", Toast.LENGTH_SHORT).show();
-                /*error.networkResponse.;*/
+                */
+/*error.networkResponse.;*//*
+
             }
         });
         Volley.newRequestQueue(getActivity()).add(request);
-    }
-
-
+*/
 
 
 }

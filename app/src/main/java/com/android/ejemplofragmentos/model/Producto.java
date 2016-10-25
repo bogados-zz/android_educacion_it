@@ -1,6 +1,8 @@
 package com.android.ejemplofragmentos.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
@@ -8,13 +10,21 @@ import java.io.Serializable;
  * Created by sbogado on 18/10/16.
  */
 
+@DatabaseTable(tableName = "PRODUCTO")
 public class Producto implements Serializable{
 
-    private Integer id=0;
+    @DatabaseField(generatedId = true)
+    private Integer id;
+
+    @DatabaseField
     @SerializedName("description")
     private String nombre;
+
+    @DatabaseField
     @SerializedName("image")
     private String urlImagen;
+
+    @DatabaseField
     @SerializedName("price")
     private Double precio=0D;
 

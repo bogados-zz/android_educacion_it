@@ -27,9 +27,8 @@ public class HomeActivity extends AppCompatActivity implements ProductosFragment
         super.onCreate(savedInstanceState);
         //Clase R tiene que ser la de nuestro proyecto
         setContentView(R.layout.activity_home);
-
-
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(getBaseContext()));
+        /*  init(new ImageLoderConfiguration.Builder(this).DiskAge  )  */
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
         /*Bundle bundle =  new Bundle() ;*/
         Bundle bundle = getIntent().getExtras();
         Toast.makeText(this, "Hola "+ bundle.getString("USER"), Toast.LENGTH_SHORT).show();

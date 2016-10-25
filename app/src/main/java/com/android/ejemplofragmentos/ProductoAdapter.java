@@ -25,7 +25,7 @@ public class ProductoAdapter extends BaseAdapter {
 
     public ProductoAdapter(List<Producto> productos) {
         this.productos = productos;
-        options = new DisplayImageOptions.Builder().displayer(new CircleBitmapDisplayer() ).build();
+        options = new DisplayImageOptions.Builder().cacheOnDisk(true).cacheInMemory(true).displayer(new CircleBitmapDisplayer() ).build();
                 /*cacheInMemory(false).*/
     }
 

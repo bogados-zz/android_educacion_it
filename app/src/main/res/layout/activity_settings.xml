@@ -16,5 +16,4 @@
     android:text="Solo sincronizar con wifi"
     android:id="@+id/only_wifi"/>
 
-
 </LinearLayout>

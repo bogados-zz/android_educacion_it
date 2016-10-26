@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import android.webkit.DownloadListener;
 
+import com.android.ejemplofragmentos.Activities.utils.SettingManager;
 import com.android.ejemplofragmentos.services.DownloadService;
 
 /**
@@ -23,12 +24,13 @@ public class NetworkReceiver extends BroadcastReceiver {
 
         //Esto se maneja con todas las redes.
         ConnectivityManager conn = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-
         //Esta viendo si esta conectado
         if(conn.getActiveNetworkInfo().isConnectedOrConnecting()){
-            Intent download = new Intent(context, DownloadService.class);
-            context.startService(download);
+            if(!SettingManager.getInstance(context).isOnlyWifi() || ( null!=conn.getActiveNetworkInfo()  && conn.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI )){
+                Intent download = new Intent(context, DownloadService.class);
+                context.startService(download);
+            }
+
 
         }
     }

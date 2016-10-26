@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.ejemplofragmentos.Activities.ProductoAdapter;
+import com.android.ejemplofragmentos.Activities.SettingsActivity;
 import com.android.ejemplofragmentos.R;
 import com.android.ejemplofragmentos.daos.ProductoDao;
 import com.android.ejemplofragmentos.model.Producto;
@@ -30,6 +32,7 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
     private OnDetailClickListener callback;
     private DownloadReciver downloadReciver;
     private IntentFilter intentFilter;
+    private Button sendToConfigView;
 
     public interface OnDetailClickListener{
         void onDetailClickListener(Producto producto);
@@ -59,6 +62,16 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
+
+        sendToConfigView = (Button) view.findViewById(R.id.change_to_settings);
+        sendToConfigView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProductosFragments.this.changeViewToSettingsActivity();
+            }
+        });
+
+
         pedirProducto();
         productos = (ListView) view.findViewById(R.id.productos);
         /*productos.setAdapter(new ProductoAdapter(pedirProducto()));*/
@@ -107,7 +120,6 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
         productos.setAdapter(new ProductoAdapter(productoDao.findAll()));
     }
 
-
     private void pedirProducto(){
         Intent downloadIntent = new Intent(getActivity(), DownloadService.class);
         Bundle bundle = new Bundle();
@@ -117,6 +129,13 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
         getActivity().startService(downloadIntent);
         /*getActivity().stopService(downloadIntent);*/
     }
+
+
+    private void changeViewToSettingsActivity() {
+        Intent changeViewIntent = new Intent(getContext(), SettingsActivity.class);
+        startActivity(changeViewIntent);
+    }
+
 
 /*
         GsonRequest<Producto[]> request = new GsonRequest<>(Request.Method.GET, "http://webkathon.com/pruebasit/products.php", Producto[].class, new Response.Listener() {
@@ -152,5 +171,12 @@ public class ProductosFragments extends android.support.v4.app.Fragment {
             cargarProductos();
         }
     }
+
+
+
+
+
+
+
 
 }

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.ejemplofragmentos.DetalleActivity;
+import com.android.ejemplofragmentos.Activities.DetalleActivity;
 import com.android.ejemplofragmentos.R;
 import com.android.ejemplofragmentos.model.Producto;
 import com.nostra13.universalimageloader.core.ImageLoader;

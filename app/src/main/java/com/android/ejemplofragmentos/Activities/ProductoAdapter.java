@@ -1,4 +1,4 @@
-package com.android.ejemplofragmentos;
+package com.android.ejemplofragmentos.Activities;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.ejemplofragmentos.R;
 import com.android.ejemplofragmentos.model.Producto;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;

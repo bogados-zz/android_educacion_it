@@ -47,7 +47,7 @@ public class ProductoDao {
 
     public List<Producto> findAll(){
         try {
-            dao.queryForAll();
+            return dao.queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }

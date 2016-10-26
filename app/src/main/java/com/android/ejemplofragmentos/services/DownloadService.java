@@ -2,12 +2,10 @@ package com.android.ejemplofragmentos.services;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.android.ejemplofragmentos.GsonRequest;
-import com.android.ejemplofragmentos.R;
 import com.android.ejemplofragmentos.daos.ProductoDao;
 import com.android.ejemplofragmentos.model.Producto;
 import com.android.volley.Request;
@@ -18,6 +16,8 @@ import com.android.volley.toolbox.Volley;
 public class DownloadService extends Service implements Response.ErrorListener, Response.Listener<Producto[]>{
 
     private static final String TAG = "Download service";
+    public static final String ACTION_DOWNLOAD_SUCCESS="com.android.ejemplofragmentos.fragments.DOWNLOAD_SUCCESS";
+    public static final String ACTION_DOWNLOAD_ERROR="com.android.ejemplofragmentos.fragments.DOWNLOAD_ERROR";
 
     private GsonRequest<Producto[]> productsRequest;
 
@@ -66,7 +66,9 @@ public class DownloadService extends Service implements Response.ErrorListener, 
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.v(TAG, "Download completed");
-
+        Intent errorEvent = new Intent(ACTION_DOWNLOAD_ERROR);
+        //Esta clase se usa solo para eventos internos de la application
+        LocalBroadcastManager.getInstance(this).sendBroadcast(errorEvent);
         stopSelf();
     }
 
@@ -77,6 +79,8 @@ public class DownloadService extends Service implements Response.ErrorListener, 
         for(int i = 0 ; i < response.length;i++){
             dao.save(response[i]);
         }
+        Intent successEvent = new Intent(ACTION_DOWNLOAD_SUCCESS);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(successEvent);
         stopSelf();
     }
 

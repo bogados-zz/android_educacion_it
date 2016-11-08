@@ -32,7 +32,10 @@ public class HomeActivity extends AppCompatActivity implements ProductosFragment
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
         /*Bundle bundle =  new Bundle() ;*/
         Bundle bundle = getIntent().getExtras();
-        Toast.makeText(this, "Hola "+ bundle.getString("USER"), Toast.LENGTH_SHORT).show();
+        if(null != bundle){
+            String usuario = bundle.getString("USER");
+            Toast.makeText(this, "Hola "+ (usuario == null?"":usuario), Toast.LENGTH_SHORT).show();
+        }
         this.doblePantalla = this.getSupportFragmentManager().findFragmentById(R.id.detalle)!= null;
     }
 

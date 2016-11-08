@@ -4,7 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <!--
      android icon para lanzar
      android lable para poder mostrar el nombre de la aplicacion
@@ -22,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.HomeActivity" />
+        <!--android:launchMode="singleInstance"-->
+        <!--android:launchMode="singleTask"-->
+        <activity android:name=".Activities.HomeActivity" android:launchMode="singleTask" />
         <activity android:name=".Activities.DetalleActivity" />
         <activity android:name=".Activities.SettingsActivity"></activity>
 
@@ -30,12 +33,36 @@
             android:name=".services.DownloadService"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".services.RegistrationService"
+            android:enabled="true"
+            android:exported="true" />
+        <service android:name=".services.PutNotificationService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".services.InstanceIdListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstaceID"/>
+            </intent-filter>
+        </service>
+
 
         <receiver android:name=".utils.NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".Activities.SettingsActivity$RegistrationReceiver"/>
+
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" />
 
     </application>
 

@@ -1,17 +1,29 @@
 package com.android.ejemplofragmentos.services;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.android.ejemplofragmentos.Activities.HomeActivity;
+import com.android.ejemplofragmentos.R;
 import com.android.ejemplofragmentos.daos.ProductoDao;
 import com.android.ejemplofragmentos.model.Producto;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DownloadService extends Service implements Response.ErrorListener, Response.Listener<Producto[]>{
 
@@ -81,7 +93,22 @@ public class DownloadService extends Service implements Response.ErrorListener, 
         }
         Intent successEvent = new Intent(ACTION_DOWNLOAD_SUCCESS);
         LocalBroadcastManager.getInstance(this).sendBroadcast(successEvent);
+        showNotification();
         stopSelf();
+    }
+
+    private void showNotification(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        Intent intent = new Intent(this,HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 ,intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notification = new NotificationCompat.Builder(this).setContentIntent(pendingIntent).setContentTitle("Sincronizacion").setSound(sound).setContentText("Se realizo la sincronizacion a las: " + simpleDateFormat.format(new Date())).setSmallIcon(R.mipmap.ic_launcher).setPriority(NotificationCompat.PRIORITY_HIGH).build();
+        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // SI creo una notification diferente y de dejo el id 0 => entonces, reemplazo el notify 0
+        nm.notify(0,notification);
     }
 
     /*@Override

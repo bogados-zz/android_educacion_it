@@ -13,10 +13,14 @@ import java.util.Set;
 public class SettingManager {
 
 
-    private static SettingManager instance;
+    private static final String FOR_REGISTRATION ="FOR_REGISTRATION" ;
 
+    private static SettingManager instance;
     private static final String SETTINGS_PREFERENCE = "SETTINGS_PREF";
     private static final String ONLY_WIFI="ONLY_WIFI";
+
+
+
 
     private SharedPreferences sharedPreferences;
 
@@ -42,5 +46,18 @@ public class SettingManager {
         editor.putBoolean(ONLY_WIFI,onlyWifi);
         editor.apply();
     }
+
+    public boolean getFromRegistration(){
+        return sharedPreferences.getBoolean(FOR_REGISTRATION, false);
+    }
+
+    public void setFromRegistration(boolean register){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(FOR_REGISTRATION, register);
+        editor.apply();
+    }
+
+
+
 
 }

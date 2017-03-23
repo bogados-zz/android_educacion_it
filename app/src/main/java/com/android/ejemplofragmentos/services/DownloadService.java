@@ -46,7 +46,6 @@ public class DownloadService extends Service implements Response.ErrorListener, 
         super.onCreate();
         this.productsRequest = new GsonRequest<>(Request.Method.GET, "http://webkathon.com/pruebasit/products.php", Producto[].class, this,this);
         Log.v(TAG, "DownloadService created");
-
     }
 
 
